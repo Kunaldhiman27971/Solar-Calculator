@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b6b45">
+  <meta name="description"
+    content="AVS Solar savings calculator to estimate rooftop solar savings, payback, and long-term value.">
+  <title>AVS Solar Savings Calculator</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">AVS</div>
+        <div>
+          <div class="brand-name">AVS SOLAR</div>
+          <div class="brand-tag">Rooftop Solar Savings Calculator</div>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <a class="nav-link" href="#calculator">Calculator</a>
+        <a class="primary-btn small" href="tel:+918091853310">Talk to us</a>
+      </div>
+    </div>
+
+    <div class="wrap hero">
+      <div class="hero-copy">
+        <span class="pill">Smart rooftop planning</span>
+        <h1>Estimate your solar savings.</h1>
+        <p class="sub">Adjust your bill, savings, and system cost to get a quick solar estimate.</p>
+
+        <div class="hero-actions">
+          <a class="primary-btn" href="#calculator">Calculate now</a>
+          <a class="secondary-btn" href="https://wa.me/918091853310" target="_blank" rel="noopener">Ask AVS Solar</a>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <main class="content wrap">
+    <section id="calculator" class="calculator-layout">
+      <div class="panel input-panel">
+        <h2>1. Your electricity pattern</h2>
+
+        <div class="field">
+          <div class="fieldtop">
+            <label for="bill">Monthly electricity bill</label>
+            <output class="value" id="billOut">₹2,000</output>
+          </div>
+          <input id="bill" type="range" min="500" max="15000" step="500" value="2000">
+          <div class="marks"><span>₹500</span><span>₹7,500</span><span>₹15,000</span></div>
+        </div>
+
+        <div class="field">
+          <div class="fieldtop">
+            <label for="coverage">Estimated bill saving from solar</label>
+            <output class="value" id="coverageOut">80%</output>
+          </div>
+          <input id="coverage" type="range" min="30" max="95" step="5" value="80">
+          <div class="marks"><span>30%</span><span>60%</span><span>95%</span></div>
+        </div>
+
+        <div class="field">
+          <div class="fieldtop">
+            <label for="increment">Yearly electricity price increment</label>
+            <output class="value" id="incrementOut">5% / year</output>
+          </div>
+          <input id="increment" type="range" min="0" max="12" step="1" value="5">
+          <div class="marks"><span>0%</span><span>5%</span><span>12%</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel investment-panel">
+      <h2>2. Solar investment estimate</h2>
+
+      <div class="inputs">
+        <div class="inputgroup">
+          <label for="cost">Solar system cost before subsidy (₹)</label>
+          <input id="cost" type="number" min="0" step="1000" value="180000">
+        </div>
+        <div class="inputgroup">
+          <label for="subsidy">Estimated subsidy (₹)</label>
+          <input id="subsidy" type="number" min="0" step="1000" value="85800">
+        </div>
+      </div>
+
+      <div class="segment" role="group" aria-label="Projection period">
+        <button type="button" data-years="10">10 years</button>
+        <button type="button" data-years="15">15 years</button>
+        <button type="button" data-years="25" class="active">25 years</button>
+      </div>
+
+      <div class="note-block">
+        <p class="note">Subsidy amount is editable for estimation.</p>
+        <p class="note">This is an indicative estimate only and not a guaranteed saving.</p>
+      </div>
+
+      <div class="cta">
+        <a class="primary-btn" id="whatsapp" href="https://wa.me/918091853310" target="_blank" rel="noopener">Enquire on
+          WhatsApp</a>
+        <button class="secondary-btn" id="share" type="button">Copy estimate summary</button>
+      </div>
+
+      <p class="note" id="copyStatus" aria-live="polite"></p>
+    </section>
+
+    <aside class="panel summary-panel">
+      <h2>3. Estimated result</h2>
+
+      <div class="result-grid">
+        <div class="metric-card highlight">
+          <span class="label">Monthly saving</span>
+          <strong id="monthly">₹1,600</strong>
+        </div>
+        <div class="metric-card">
+          <span class="label">First-year saving</span>
+          <strong id="annual">₹19,200</strong>
+        </div>
+        <div class="metric-card">
+          <span class="label">Net system cost</span>
+          <strong id="netCost">₹94,200</strong>
+        </div>
+        <div class="metric-card">
+          <span class="label">Estimated in year 25</span>
+          <strong id="finalYear">—</strong>
+        </div>
+      </div>
+
+      <div class="side-insights">
+        <div class="insight-row">
+          <span>Estimated payback</span>
+          <strong id="payback">—</strong>
+        </div>
+        <div class="insight-row">
+          <span>Projected 25-year value</span>
+          <strong id="total">—</strong>
+        </div>
+        <div class="insight-row">
+          <span>Return estimate</span>
+          <strong id="roi">—</strong>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer>© <span id="year"></span> AVS Solar · Solar savings calculator</footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
