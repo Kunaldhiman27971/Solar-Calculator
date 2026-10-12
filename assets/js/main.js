@@ -12,11 +12,24 @@ const compactRupees = (value) => {
 };
 
 let years = 25;
+let costWasManuallyEdited = false;
+
+function getSuggestedSystemCost(bill) {
+    if (bill <= 2000) return 220000;
+    if (bill <= 5000) return 330000;
+    return 430000;
+}
+
+function syncCostFromBill() {
+    if (costWasManuallyEdited) return;
+    const bill = Math.max(0, Number($('bill').value) || 0);
+    $('cost').value = getSuggestedSystemCost(bill);
+}
 
 function calculate() {
     const bill = Math.max(0, Number($('bill').value) || 0);
-    const coverage = Math.max(0, Math.min(100, Number($('coverage').value) || 0)) / 100;
-    const growth = Math.max(0, Number($('increment').value) || 0) / 100;
+    const coverage = 1;
+    const growth = 0.05;
     const cost = Math.max(0, Number($('cost').value) || 0);
     const subsidy = Math.max(0, Number($('subsidy').value) || 0);
 
@@ -32,8 +45,6 @@ function calculate() {
     const solarScore = Math.min(99, Math.round((coverage * 100) * 0.7 + (bill / 15000) * 30));
 
     $('billOut').textContent = rupees(bill);
-    $('coverageOut').textContent = `${Math.round(coverage * 100)}%`;
-    $('incrementOut').textContent = `${Math.round(growth * 100)}% / year`;
     $('monthly').textContent = rupees(monthlySaving);
     $('annual').textContent = rupees(firstYearSaving);
     $('finalYear').textContent = rupees(finalYearSavings);
@@ -85,8 +96,20 @@ function calculate() {
     };
 }
 
-['bill', 'coverage', 'increment', 'cost', 'subsidy'].forEach((id) => {
+['subsidy'].forEach((id) => {
     $(id).addEventListener('input', calculate);
+});
+
+$('bill').addEventListener('input', () => {
+    if (!costWasManuallyEdited) {
+        $('cost').value = getSuggestedSystemCost(Math.max(0, Number($('bill').value) || 0));
+    }
+    calculate();
+});
+
+$('cost').addEventListener('input', () => {
+    costWasManuallyEdited = true;
+    calculate();
 });
 
 document.querySelectorAll('[data-years]').forEach((button) => {
@@ -100,4 +123,5 @@ document.querySelectorAll('[data-years]').forEach((button) => {
 });
 
 $('year').textContent = new Date().getFullYear();
+$('cost').value = getSuggestedSystemCost(Math.max(0, Number($('bill').value) || 0));
 calculate();
